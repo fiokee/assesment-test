@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -23,7 +24,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const apiEndpoint = `https://cad88c3dc5b43bd47267.free.beeceptor.com/api/users/`;
+  const apiEndpoint = `https://ca37088e62d5eac22de7.free.beeceptor.com/api/users/`;
 
   // Fetch users from the API
   const fetchUsers = async () => {
@@ -72,6 +73,17 @@ const Dashboard = () => {
     setIsDeleteModalOpen(!isDeleteModalOpen);
   };
 
+  // Handler to toggle add user modal
+  const toggleAddModal = () => {
+    setFormData({
+      fullName: '',
+      email: '',
+      role: 'User',
+      password: ''
+    });
+    setIsAddModalOpen(!isAddModalOpen);
+  };
+
   // Handler for form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -79,6 +91,34 @@ const Dashboard = () => {
       ...formData,
       [name]: value
     });
+  };
+
+  // Handler for form submission (Add User)
+  const handleAddSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      const newUser = {
+        name: formData.fullName,
+        email: formData.email,
+        role: formData.role,
+        password: formData.password
+      };
+      const response = await axios.post(apiEndpoint, newUser);
+      setUsers([...users, response.data]);
+    } catch (error) {
+      setError('Failed to add user');
+    } finally {
+      setLoading(false);
+      setIsAddModalOpen(false);
+      setFormData({
+        fullName: '',
+        email: '',
+        role: 'User',
+        password: ''
+      });
+    }
   };
 
   // Handler for form submission (Edit User)
@@ -124,10 +164,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 md:mx-auto w-[52rem]">
       {/* Header with Search Box and Filter */}
       <div className="flex flex-col md:flex-row items-center justify-between mb-4">
-        <div className="relative w-full md:w-auto md:flex-grow max-w-lg mb-4 md:mb-0">
+        <div className="relative w-full md:w-auto md:flex-grow max-w-lg mb-4 md:mb-0 md:mx-auto md:text-center">
           <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
             type="text"
@@ -137,6 +177,11 @@ const Dashboard = () => {
             className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+        {/* <div className='block'>
+
+          <p className='text-center'>Users</p>
+          <p className='text-center'>Roles</p>
+        </div> */}
         <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
           <button
             onClick={toggleRoleDropdown}
@@ -145,6 +190,12 @@ const Dashboard = () => {
             <FaFilter className="mr-2" />
             Filter
             {isRoleDropdownOpen ? <IoMdArrowDropup className="ml-2" /> : <IoMdArrowDropdown className="ml-2" />}
+          </button>
+          <button
+            onClick={toggleAddModal}
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          >
+            New User
           </button>
         </div>
       </div>
@@ -179,15 +230,15 @@ const Dashboard = () => {
                 <td className="px-4 py-2 flex flex-wrap gap-2">
                   <button
                     onClick={() => toggleEditModal(item)}
-                    className="px-2 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    className="px-2 py-1   rounded-lg"
                   >
-                    <FaEdit className="inline-block" /> Edit
+                    <p className="inline-block" /> Edit
                   </button>
                   <button
                     onClick={() => toggleDeleteModal(item.id)}
-                    className="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                    className="px-2 py-1 text rounded-lg"
                   >
-                    <FaTrash className="inline-block" /> Remove
+                    <p className="inline-block" /> Remove
                   </button>
                 </td>
               </tr>
@@ -261,8 +312,82 @@ const Dashboard = () => {
                 </button>
               </div>
               <div className="text-right">
-                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                <button type="submit" className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                   Update User
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Add User Modal */}
+      {isAddModalOpen && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Add User</h2>
+              <button onClick={() => setIsAddModalOpen(false)} className="text-gray-600 hover:text-gray-900">
+                &times;
+              </button>
+            </div>
+            <form onSubmit={handleAddSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Full Name</label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  placeholder="Full Name"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Email Address"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Role</label>
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="Admin">Admin</option>
+                  <option value="User">User</option>
+                  <option value="Moderator">Moderator</option>
+                </select>
+              </div>
+              <div className="mb-4 relative">
+                <label className="block text-gray-700 mb-2">Password</label>
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Create Password"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+              <div className="text-right">
+                <button type="submit" className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                  Add User
                 </button>
               </div>
             </form>

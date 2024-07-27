@@ -16,9 +16,9 @@ const Sidebar = () => {
           />
         </div>
         <nav className="mt-4 flex flex-col space-y-4">
-          <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
+          {/* <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
             <FaHome className="mr-4 text-xl" /> Home
-          </a>
+          </a> */}
           <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
             <FaUser className="mr-4 text-xl" /> Account
           </a>

@@ -4,7 +4,7 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import { IoWalletOutline, IoSettingsOutline } from 'react-icons/io5';
 import Logo from '../assets/logo2.png';
 import { GoQuestion } from 'react-icons/go';
-import Profile from '../assets/profile.jfif';
+import Profile from '../assets/profile2.png';
 import Sidebar from './SideBar';
 import DashBoard from './Dashboard';
 const Header = () => {
@@ -53,6 +53,10 @@ const Header = () => {
     <div>
       <Sidebar/>
     </div>
+    <p className='md:mx-auto md:text-center'>Settings / Users & Roles Settings</p>
+    <h1 className='md:mx-auto md:text-center font-bold text-3xl'>Users & Roles</h1>
+    <p className='md:mx-auto md:text-center'>Manage all users in your business</p>
+
     <DashBoard/>
     </Fragment>
   );
