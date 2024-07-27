@@ -288,9 +288,9 @@ const Dashboard = () => {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="Admin">Admin</option>
-                  <option value="User">User</option>
-                  <option value="Moderator">Moderator</option>
+                  <option value="Admin">Administrator</option>
+                  <option value="Moderator">Sales Manager</option>
+                  <option value="Moderator">Sales Representative</option>
                 </select>
               </div>
               <div className="mb-4 relative">
@@ -362,9 +362,9 @@ const Dashboard = () => {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="Admin">Admin</option>
-                  <option value="User">User</option>
-                  <option value="Moderator">Moderator</option>
+                  <option value="Admin">Administrator</option>
+                  <option value="Moderator">Sales Manager</option>
+                  <option value="Moderator">Sales Representative</option>
                 </select>
               </div>
               <div className="mb-4 relative">
