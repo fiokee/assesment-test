@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { FaHome, FaUser, FaCog, FaList, FaBars, FaTimes, FaLock, FaBell, FaDollarSign, FaChartBar, FaDatabase, FaArrowLeft } from 'react-icons/fa';
-
+import { RiUserLine } from "react-icons/ri";
+import { MdLockOutline } from "react-icons/md";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { CiMoneyBill, CiCloud } from "react-icons/ci";
+import { PiUsers } from "react-icons/pi";
+import { LuArrowLeftToLine } from "react-icons/lu";
+import { IoPricetagOutline } from "react-icons/io5";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,31 +26,31 @@ const Sidebar = () => {
             <FaHome className="mr-4 text-xl" /> Home
           </a> */}
           <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
-            <FaUser className="mr-4 text-xl" /> Account
+            <RiUserLine className="mr-4 text-xl" /> Account
           </a>
           <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
-            <FaLock className="mr-4 text-xl" /> Security
+            <MdLockOutline className="mr-4 text-xl" /> Security
           </a>
           <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
-            <FaBell className="mr-4 text-xl" /> Notification
+            <IoMdNotificationsOutline className="mr-4 text-xl" /> Notification
           </a>
           <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
-            <FaDollarSign className="mr-4 text-xl" /> Pricing
+            <CiMoneyBill className="mr-4 text-xl" /> Pricing
           </a>
           <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
-            <FaChartBar className="mr-4 text-xl" /> Sales
+            <IoPricetagOutline className="mr-4 text-xl" /> Sales
           </a>
           <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
-            <FaList className="mr-4 text-xl" /> Users & Sales
+            <PiUsers className="mr-4 text-xl" /> Users & Roles
           </a>
           <a href="#" className="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md">
-            <FaDatabase className="mr-4 text-xl" /> Backups
+            <CiCloud className="mr-4 text-xl" /> Backups
           </a>
           {/* Bottom link */}
           <div className='mt-auto top-32 border-gray-50'>
 
           <a href="#" className="flex items-center border-gray-50 px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-md mt-auto">
-            <FaArrowLeft className="mr-3 text-xl" /> Back to Dashboard
+            <LuArrowLeftToLine className="mr-3 text-xl" /> Back to Dashboard
           </a>
           </div>
         </nav>
